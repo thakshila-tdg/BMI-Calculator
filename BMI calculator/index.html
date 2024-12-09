@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 5vh;
+        }
+
+        .box {
+            background-color: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 20%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .input, .gender, .containerHW {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .text-input, input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 2px solid #3d05f7;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #f0f8ff;
+        }
+
+        input[type="number"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .gender label {
+            display: flex;
+            align-items: center;
+            color: #34495e;
+        }
+
+        .gender input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .containerHW {
+            display: flex;
+            gap: 10px;
+        }
+
+        .inputH, .inputW {
+            flex: 1;
+        }
+
+        .calculate {
+            width: 100%;
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .calculate:hover {
+            background-color: #f98c0f;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer-text {
+            text-decoration: none;
+            color: #3498db;
+        }
+
+        .footer-text:hover {
+            text-decoration: underline;
+        }
+
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .comment {
+            font-size: 14px;
+            color: #27ae60;
+        }
+
+        /* Shortened label for height and weight fields */
+        .containerHW .inputH label,
+        .containerHW .inputW label {
+            font-size: 14px;
+            color: #2c3e50;
+        }
+        .gender {
+    display: flex;
+    flex-direction: column; /* Arrange items in a column */
+    align-items: flex-start; /* Align items to the left */
+    margin-bottom: 15px;
+    gap: 10px; /* Add spacing between the labels */
+}
+
+.gender label {
+    display: flex;
+    align-items: center; /* Align radio button and text vertically */
+    gap: 5px; /* Add spacing between the radio button and text */
+    font-size: 16px;
+    color: #34495e;
+}
+
+.gender input[type="radio"] {
+    margin: 0; /* Remove default margin for better alignment */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <br><br><br><br><br><br><br>
+    <div class="container">
+        <div class="box">
+            <h1>BMI Calculator</h1>
+            <div class="content">
+                <div class="input">
+                    <label for="age">Age</label>
+                    <input type="text" class="text-input" id="age" autocomplete="off" required />
+                </div>
+                
+                <div class="gender">
+                    <label class="container">
+                        <input type="radio" name="gender" id="male" value="Male"> Male
+                    </label>
+                    <label class="container">
+                        <input type="radio" name="gender" id="female" value="Female"> Female
+                    </label>
+                </div>
+                
+
+                <div class="containerHW">
+                    <div class="inputH">
+                        <label for="height">Ht (cm)</label>
+                        <input type="number" id="height" placeholder="e.g., 170" required>
+                    </div>
+                    <div class="inputW">
+                        <label for="weight">Wt (kg)</label>
+                        <input type="number" id="weight" placeholder="e.g., 65" required>
+                    </div>
+                </div>
+
+                <button class="calculate" id="submit" onclick="calculateBMI();">Calculate BMI</button>
+
+                <div class="result">
+                    <p>Your BMI is:</p>
+                    <div id="result">00.00</div>
+                    <p class="comment"></p>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            const height = document.getElementById('height').value / 100; // Convert cm to meters
+            const weight = document.getElementById('weight').value;
+            if (height > 0 && weight > 0) {
+                const bmi = (weight / (height * height)).toFixed(2);
+                document.getElementById('result').textContent = bmi;
+
+                const comment = document.querySelector('.comment');
+                if (bmi < 18.5) {
+                    comment.textContent = 'Underweight';
+                } else if (bmi < 24.9) {
+                    comment.textContent = 'Normal weight';
+                } else if (bmi < 29.9) {
+                    comment.textContent = 'Overweight';
+                } else {
+                    comment.textContent = 'Obesity';
+                }
+            } else {
+                alert('Please enter valid height and weight values.');
+            }
+        }
+    </script>
+</body>
+</html>
